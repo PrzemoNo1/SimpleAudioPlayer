@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         clapButton.setOnClickListener{
             if (mMediaPlayer == null) {
                 mMediaPlayer = MediaPlayer.create(this, R.raw.clapping)
+                setOnCompleteListener()
                 mMediaPlayer?.start()
                 sound = Sound.CLAP
             } else {
@@ -57,8 +58,31 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        rainButton.setOnClickListener(DEFAULT_LISTENER)
+
+        rainButton.setOnClickListener{
+            if (mMediaPlayer == null) {
+                mMediaPlayer = MediaPlayer.create(this, R.raw.rain)
+                setOnCompleteListener()
+                mMediaPlayer?.start()
+                sound = Sound.RAIN
+            } else {
+                if (sound?.equals(Sound.RAIN) == true && mMediaPlayer?.isPlaying() == true) {
+                    mMediaPlayer?.pause()
+                } else {
+                    mMediaPlayer?.start()
+                }
+            }
+        }
+
         trainButton.setOnClickListener(DEFAULT_LISTENER)
         fileButton.setOnClickListener(DEFAULT_LISTENER)
+    }
+
+    private fun setOnCompleteListener() {
+        mMediaPlayer?.setOnCompletionListener {
+            mMediaPlayer?.reset()
+            mMediaPlayer?.release()
+            mMediaPlayer = null
+        }
     }
 }
