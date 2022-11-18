@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                 sound = Sound.CLAP
             } else {
                 if (isIsDemandedSoundChosen) {
-                    if (mMediaPlayer?.isPlaying() == true) {
+                    if (mMediaPlayer?.isPlaying == true) {
                         mMediaPlayer?.pause()
                     } else {
                         mMediaPlayer?.start()
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                 sound = Sound.RAIN
             } else {
                 if (isIsDemandedSoundChosen) {
-                    if (mMediaPlayer?.isPlaying() == true) {
+                    if (mMediaPlayer?.isPlaying == true) {
                         mMediaPlayer?.pause()
                     } else {
                         mMediaPlayer?.start()
