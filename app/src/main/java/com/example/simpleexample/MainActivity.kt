@@ -45,31 +45,53 @@ class MainActivity : AppCompatActivity() {
         tvRemain = findViewById<TextView>(R.id.tvRemain)
 
         clapButton.setOnClickListener{
+            val isIsDemandedSoundChosen = Sound.CLAP == sound
             if (mMediaPlayer == null) {
                 mMediaPlayer = MediaPlayer.create(this, R.raw.clapping)
                 setOnCompleteListener()
                 mMediaPlayer?.start()
                 sound = Sound.CLAP
             } else {
-                if (sound?.equals(Sound.CLAP) == true && mMediaPlayer?.isPlaying() == true) {
-                    mMediaPlayer?.pause()
+                if (isIsDemandedSoundChosen) {
+                    if (mMediaPlayer?.isPlaying() == true) {
+                        mMediaPlayer?.pause()
+                    } else {
+                        mMediaPlayer?.start()
+                    }
                 } else {
+                    mMediaPlayer?.reset()
+                    mMediaPlayer?.release()
+                    mMediaPlayer = null
+                    mMediaPlayer = MediaPlayer.create(this, R.raw.clapping)
+                    setOnCompleteListener()
                     mMediaPlayer?.start()
+                    sound = Sound.CLAP
                 }
             }
         }
 
         rainButton.setOnClickListener{
+            val isIsDemandedSoundChosen = Sound.RAIN == sound
             if (mMediaPlayer == null) {
                 mMediaPlayer = MediaPlayer.create(this, R.raw.rain)
                 setOnCompleteListener()
                 mMediaPlayer?.start()
                 sound = Sound.RAIN
             } else {
-                if (sound?.equals(Sound.RAIN) == true && mMediaPlayer?.isPlaying() == true) {
-                    mMediaPlayer?.pause()
+                if (isIsDemandedSoundChosen) {
+                    if (mMediaPlayer?.isPlaying() == true) {
+                        mMediaPlayer?.pause()
+                    } else {
+                        mMediaPlayer?.start()
+                    }
                 } else {
+                    mMediaPlayer?.reset()
+                    mMediaPlayer?.release()
+                    mMediaPlayer = null
+                    mMediaPlayer = MediaPlayer.create(this, R.raw.rain)
+                    setOnCompleteListener()
                     mMediaPlayer?.start()
+                    sound = Sound.RAIN
                 }
             }
         }
