@@ -5,7 +5,7 @@ import android.media.MediaPlayer
 
 class MediaPlayerWrapper(context : Context) {
     enum class Sound {
-        NOT_USED, CLAP, RAIN
+        NOT_USED, CLAP, RAIN, TRAIN
     }
 
     private var mChosenSound = Sound.NOT_USED
@@ -25,6 +25,10 @@ class MediaPlayerWrapper(context : Context) {
             "Rain" -> {
                 mChosenSound = Sound.RAIN
                 mCreator = Runnable { createRainPlayer() }
+            }
+            "Train" -> {
+                mChosenSound = Sound.TRAIN
+                mCreator = Runnable { createTrainPlayer() }
             }
             else -> {
                 throw IllegalArgumentException("Wrong sound")
@@ -61,6 +65,11 @@ class MediaPlayerWrapper(context : Context) {
 
     private fun createClapPlayer() {
         mMediaPlayer = MediaPlayer.create(mContext, R.raw.clapping)
+        setOnCompleteListener()
+    }
+
+    private fun createTrainPlayer() {
+        mMediaPlayer = MediaPlayer.create(mContext, R.raw.train)
         setOnCompleteListener()
     }
 

@@ -44,7 +44,9 @@ class MainActivity : AppCompatActivity() {
             mMediaPlayerWrapper.play("Rain")
         }
 
-        trainButton.setOnClickListener(DEFAULT_LISTENER)
+        trainButton.setOnClickListener {
+            mMediaPlayerWrapper.play("Train")
+        }
         fileButton.setOnClickListener(DEFAULT_LISTENER)
     }
 }
