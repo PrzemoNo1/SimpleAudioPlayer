@@ -36,6 +36,10 @@ class MainActivity : AppCompatActivity() {
         tvProgress = findViewById<TextView>(R.id.tvProgress)
         tvRemain = findViewById<TextView>(R.id.tvRemain)
 
+        checkLoop.setOnClickListener {
+            mMediaPlayerWrapper.setLooping(checkLoop.isChecked)
+        }
+
         clapButton.setOnClickListener{
             mMediaPlayerWrapper.play("Clap")
         }

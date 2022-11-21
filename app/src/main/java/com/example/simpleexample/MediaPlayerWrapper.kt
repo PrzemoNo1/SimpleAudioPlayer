@@ -15,6 +15,12 @@ class MediaPlayerWrapper(context : Context) {
     private var mMediaPlayer: MediaPlayer? = null
 
     private var mCreator = Runnable {}
+    private var mIsLooping = false
+
+    fun setLooping(isLooping : Boolean) {
+        mMediaPlayer?.isLooping = isLooping
+        mIsLooping = isLooping
+    }
 
     fun play(sound : String) {
         when (sound) {
@@ -60,16 +66,19 @@ class MediaPlayerWrapper(context : Context) {
 
     private fun createRainPlayer() {
         mMediaPlayer = MediaPlayer.create(mContext, R.raw.rain)
+        mMediaPlayer?.isLooping = mIsLooping
         setOnCompleteListener()
     }
 
     private fun createClapPlayer() {
         mMediaPlayer = MediaPlayer.create(mContext, R.raw.clapping)
+        mMediaPlayer?.isLooping = mIsLooping
         setOnCompleteListener()
     }
 
     private fun createTrainPlayer() {
         mMediaPlayer = MediaPlayer.create(mContext, R.raw.train)
+        mMediaPlayer?.isLooping = mIsLooping
         setOnCompleteListener()
     }
 
