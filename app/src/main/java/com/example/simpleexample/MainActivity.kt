@@ -1,6 +1,5 @@
 package com.example.simpleexample
 
-import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,11 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
-
-    enum class Sound {
-        CLAP, RAIN, TRAIN, USER
-    }
-
     private lateinit var clapButton : Button
     private lateinit var rainButton : Button
     private lateinit var trainButton : Button
@@ -24,13 +18,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvProgress : TextView
     private lateinit var tvRemain : TextView
 
-    private var mMediaPlayer: MediaPlayer? = null
-
     private val DEFAULT_LISTENER = View.OnClickListener() {
         Toast.makeText(this, "Not implemented button yet!", Toast.LENGTH_SHORT).show()
     }
 
-    private var sound : Sound? = null
+    private val mMediaPlayerWrapper = MediaPlayerWrapper(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,66 +37,14 @@ class MainActivity : AppCompatActivity() {
         tvRemain = findViewById<TextView>(R.id.tvRemain)
 
         clapButton.setOnClickListener{
-            val isIsDemandedSoundChosen = Sound.CLAP == sound
-            if (mMediaPlayer == null) {
-                mMediaPlayer = MediaPlayer.create(this, R.raw.clapping)
-                setOnCompleteListener()
-                mMediaPlayer?.start()
-                sound = Sound.CLAP
-            } else {
-                if (isIsDemandedSoundChosen) {
-                    if (mMediaPlayer?.isPlaying == true) {
-                        mMediaPlayer?.pause()
-                    } else {
-                        mMediaPlayer?.start()
-                    }
-                } else {
-                    mMediaPlayer?.reset()
-                    mMediaPlayer?.release()
-                    mMediaPlayer = null
-                    mMediaPlayer = MediaPlayer.create(this, R.raw.clapping)
-                    setOnCompleteListener()
-                    mMediaPlayer?.start()
-                    sound = Sound.CLAP
-                }
-            }
+            mMediaPlayerWrapper.play("Clap")
         }
 
         rainButton.setOnClickListener{
-            val isIsDemandedSoundChosen = Sound.RAIN == sound
-            if (mMediaPlayer == null) {
-                mMediaPlayer = MediaPlayer.create(this, R.raw.rain)
-                setOnCompleteListener()
-                mMediaPlayer?.start()
-                sound = Sound.RAIN
-            } else {
-                if (isIsDemandedSoundChosen) {
-                    if (mMediaPlayer?.isPlaying == true) {
-                        mMediaPlayer?.pause()
-                    } else {
-                        mMediaPlayer?.start()
-                    }
-                } else {
-                    mMediaPlayer?.reset()
-                    mMediaPlayer?.release()
-                    mMediaPlayer = null
-                    mMediaPlayer = MediaPlayer.create(this, R.raw.rain)
-                    setOnCompleteListener()
-                    mMediaPlayer?.start()
-                    sound = Sound.RAIN
-                }
-            }
+            mMediaPlayerWrapper.play("Rain")
         }
 
         trainButton.setOnClickListener(DEFAULT_LISTENER)
         fileButton.setOnClickListener(DEFAULT_LISTENER)
-    }
-
-    private fun setOnCompleteListener() {
-        mMediaPlayer?.setOnCompletionListener {
-            mMediaPlayer?.reset()
-            mMediaPlayer?.release()
-            mMediaPlayer = null
-        }
     }
 }
