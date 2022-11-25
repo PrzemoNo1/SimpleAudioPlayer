@@ -17,6 +17,20 @@ class MediaPlayerWrapper(context : Context) {
     private var mCreator = Runnable {}
     private var mIsLooping = false
 
+    fun getCurrentPosition() : Int {
+        val currentPosition : Int
+        try {
+            currentPosition = mMediaPlayer!!.currentPosition
+        } catch (e : Exception) {
+            return 0
+        }
+        return currentPosition
+    }
+
+    fun getDuration() : Int {
+        return mMediaPlayer!!.duration
+    }
+
     fun setLooping(isLooping : Boolean) {
         mMediaPlayer?.isLooping = isLooping
         mIsLooping = isLooping
